@@ -1,0 +1,22 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+coverage/
+*.tsbuildinfo
+
+# Local AI coding tools
+.agents/
+AGENTS.md
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
