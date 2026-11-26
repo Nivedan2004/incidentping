@@ -24,23 +24,7 @@ without switching between multiple dashboards.
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    A[Web Application] -->|Application errors| B[Sentry]
-    B -->|Authenticated webhook| C[IncidentPing Backend]
-    C -->|Incident notification| D[Linq API]
-    D <-->|Two-way messaging| E[Engineer]
-    D -->|Incoming message webhook| C
-    C <-->|Conversation history and deduplication| F[(DynamoDB)]
-    C <-->|Function calling| G[Google Gemini]
-    C -->|Issue details and stack traces| B
-    C -->|Source code and commits| H[GitHub API]
-    C -->|HTTP health check| A
-    subgraph AWS
-        C
-        F
-    end
-```
+![IncidentPing System Architecture](assets/IncidentPing_Architecture.png)
 
 ## How It Works
 
