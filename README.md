@@ -248,7 +248,7 @@ not a production-ready incident management platform.
 Built by **Nivedan B R**.
 
 Master's student in Computer Science and Software
-Engineering at the University of Washington Bothell.
+Engineering at the University of Washington.
 
 - Portfolio: https://www.nivedan.website
 - GitHub: https://github.com/Nivedan2004
