@@ -1,0 +1,54 @@
+name: Continuous Integration
+
+# Run CI for pull requests targeting main
+# and after changes are merged into main
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+# Grant only the permissions required by CI
+permissions:
+  contents: read
+
+# Cancel outdated runs for the same branch or PR
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # Checkout the repository
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Match the AWS Lambda Node.js runtime
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      # Install dependencies using the lock file
+      - name: Install dependencies
+        run: npm ci
+
+      # Verify TypeScript compilation
+      - name: Build application
+        run: npm run build
+
+      # Run automated unit tests
+      - name: Run tests
+        run: npm test
+
+      # Check production dependencies for vulnerabilities
+      - name: Security audit
+        run: npm audit --omit=dev --audit-level=high
